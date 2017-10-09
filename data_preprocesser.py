@@ -45,15 +45,17 @@
 [12312, 123124, 123123, 123123]
 
 
-# In[3]:
+# In[4]:
 
 
 import xml.etree.ElementTree as ET
 import os
 XML_NAMESPACE = '{http://www.mediawiki.org/xml/export-0.10/}'
+# this filter could be too harsh
+BLACK_LISTED_CHARS = ['/', '|', '=', ']]', '[[', '_', 'أعلام', '}}', '{{']
 
 
-# In[4]:
+# In[5]:
 
 
 def get_xml_content(document):
@@ -72,7 +74,7 @@ def get_xml_content(document):
     return (article_id.text, text.text)
 
 
-# In[5]:
+# In[6]:
 
 
 def clean_up_body_text(text):
@@ -87,7 +89,7 @@ def clean_up_body_text(text):
     return clean_text
 
 
-# In[6]:
+# In[7]:
 
 
 def create_article_file(filename, text):
@@ -101,7 +103,7 @@ def create_article_file(filename, text):
     file.close()
 
 
-# In[7]:
+# In[8]:
 
 
 def write_text_xml_content_to_file(file):
@@ -114,7 +116,7 @@ def write_text_xml_content_to_file(file):
     create_article_file(article_id, clean_body_text)
 
 
-# In[12]:
+# In[26]:
 
 
 def create_formatted_file_for_each_word(file):
@@ -134,15 +136,24 @@ def create_formatted_file_for_each_word(file):
     if not os.path.exists('word_files/'):
         os.mkdir('word_files/')
     
+    legal_word = True
+
     for word in uniq_words_in_body_text:
-        with open('word_files/' + word + '.txt', 'a') as file:
-            file.write(article_id + '\n')
+        # check if word contains a black listed char
+        for char in BLACK_LISTED_CHARS:
+            if char in word:
+                legal_word = False
+
+        if legal_word:
+            with open('word_files/' + word + '.txt', 'a') as file:
+                file.write(article_id + '\n')
+        legal_word = True
 
 
-# In[13]:
+# In[27]:
 
 
-create_formatted_file_for_each_word('12345.txt')
+create_formatted_file_for_each_word('15.txt')
 
 
 # In[14]:
