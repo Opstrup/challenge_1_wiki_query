@@ -52,7 +52,7 @@ import xml.etree.ElementTree as ET
 import os
 XML_NAMESPACE = '{http://www.mediawiki.org/xml/export-0.10/}'
 # this filter could be too harsh
-BLACK_LISTED_CHARS = ['/', '|', '=', ']]', '[[', '_', 'أعلام', '}}', '{{']
+BLACK_LISTED_CHARS = ['/', '|', '=', ']]', '[[', '_', 'أعلام', '}}', '{{', '&', '<']
 
 
 # In[2]:
@@ -134,7 +134,8 @@ def create_formatted_file_for_each_word(file):
     uniq_words_in_body_text = set(splitted_body_text)
     
     # gets the article id from the filename
-    article_id = file.split('.')[0]
+    article_id = os.path.basename(file)
+    article_id = article_id.split('.')[0]
     
     if not os.path.exists('word_files/'):
         os.mkdir('word_files/')
@@ -171,12 +172,6 @@ create_formatted_file_for_each_word('89.txt')
 
 
 create_formatted_file_for_each_word('12.txt')
-
-
-# In[16]:
-
-
-#write_text_xml_content_to_file('test_xml/Wikipedia-20170926135213.xml')
 
 
 # In[ ]:
