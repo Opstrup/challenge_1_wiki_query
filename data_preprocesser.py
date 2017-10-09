@@ -12,7 +12,7 @@
 # Filename: cat.txt <br>
 # Format:
 
-# In[1]:
+# In[ ]:
 
 
 {
@@ -39,13 +39,13 @@
 }
 
 
-# In[2]:
+# In[ ]:
 
 
 [12312, 123124, 123123, 123123]
 
 
-# In[4]:
+# In[1]:
 
 
 import xml.etree.ElementTree as ET
@@ -55,7 +55,7 @@ XML_NAMESPACE = '{http://www.mediawiki.org/xml/export-0.10/}'
 BLACK_LISTED_CHARS = ['/', '|', '=', ']]', '[[', '_', 'أعلام', '}}', '{{']
 
 
-# In[5]:
+# In[2]:
 
 
 def get_xml_content(document):
@@ -74,7 +74,7 @@ def get_xml_content(document):
     return (article_id.text, text.text)
 
 
-# In[6]:
+# In[8]:
 
 
 def clean_up_body_text(text):
@@ -89,7 +89,7 @@ def clean_up_body_text(text):
     return clean_text
 
 
-# In[7]:
+# In[13]:
 
 
 def create_article_file(filename, text):
@@ -98,12 +98,15 @@ def create_article_file(filename, text):
     containing the article body text.
     If the file does not exists it creates the file.
     """
-    file = open(filename, 'a')
+    if not os.path.exists('articles/'):
+        os.mkdir('articles/')
+    
+    file = open('articles/' + filename + '.txt', 'a')
     file.write(text)
     file.close()
 
 
-# In[8]:
+# In[14]:
 
 
 def write_text_xml_content_to_file(file):
@@ -112,11 +115,11 @@ def write_text_xml_content_to_file(file):
     It cleans up the text aswell.
     """
     (article_id, body_text) = get_xml_content(file)
-    clean_body_text = clean_body_text(body_text)
-    create_article_file(article_id, clean_body_text)
+    clean_text = clean_up_body_text(body_text)
+    create_article_file(article_id, clean_text)
 
 
-# In[26]:
+# In[15]:
 
 
 def create_formatted_file_for_each_word(file):
@@ -150,22 +153,30 @@ def create_formatted_file_for_each_word(file):
         legal_word = True
 
 
-# In[27]:
+# The files below are just some extra handmade test files.
+
+# In[ ]:
 
 
 create_formatted_file_for_each_word('15.txt')
 
 
-# In[14]:
+# In[ ]:
 
 
 create_formatted_file_for_each_word('89.txt')
 
 
-# In[15]:
+# In[ ]:
 
 
 create_formatted_file_for_each_word('12.txt')
+
+
+# In[16]:
+
+
+#write_text_xml_content_to_file('test_xml/Wikipedia-20170926135213.xml')
 
 
 # In[ ]:
