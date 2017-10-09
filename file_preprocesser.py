@@ -1,32 +1,40 @@
 
 # coding: utf-8
 
-# In[39]:
+# In[1]:
 
 
-from data_preprocesser import write_text_xml_content_to_file
+from data_preprocesser import create_formatted_file_for_each_word
 import glob
 XML_FOLDER = 'test_xml'
 
 
-# In[56]:
+# In[2]:
 
 
 def get_xml_documents_filepaths(folder):
+    """
+    Takes a filepath as argument.
+    Returns a list with all .xml documents within the folder.
+    """
     files = glob.glob(folder + '/*.xml')
     return files
 
 
-# In[59]:
+# In[3]:
 
 
 def process_all_xml_files_in_folder(folder=XML_FOLDER):
+    """
+    Processes all .xml documents within the given folder.
+    Uses the data_preprocesser module as underlying logic.
+    """
     xml_files = get_xml_documents_filepaths(folder)
     for xml_file in xml_files:
-        write_text_xml_content_to_file(xml_file)
+        create_formatted_file_for_each_word(xml_file)
 
 
-# In[61]:
+# In[ ]:
 
 
 if __name__ == "__main__":
