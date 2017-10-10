@@ -159,19 +159,19 @@ def create_formatted_file_for_each_word(file):
 # In[ ]:
 
 
-create_formatted_file_for_each_word('15.txt')
+#create_formatted_file_for_each_word('15.txt')
 
 
 # In[ ]:
 
 
-create_formatted_file_for_each_word('89.txt')
+#create_formatted_file_for_each_word('89.txt')
 
 
 # In[ ]:
 
 
-create_formatted_file_for_each_word('12.txt')
+#create_formatted_file_for_each_word('12.txt')
 
 
 # In[ ]:
